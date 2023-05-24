@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# First argument is for the file path
-# Second is the username of the person running the code (for the xdisk location)
-
 USER="adityakumar"
 SCAN_PATH="/iplant/home/shared/phytooracle/season_15_lettuce_yr_2022/level_0/scanner3DTop/scanner3DTop-2023-03-07__18-27-40-989_lettuce.tar.gz"
 TEST_DATASET_NAME="scanner3DTop-2223-03-07__00-00-00-000_lettuce.tar.gz"
@@ -12,6 +9,7 @@ while test $# -gt 0; do
     case "$1" in
         -h|--help)
             echo "script usage: $(basename $0) [-p pathname] [-u username] [-t test_dataset_name(DON'T INCLUDE .tar.gz)] [-n number_of_files]"
+            echo "example: ./automator.sh -p /iplant/home/shared/phytooracle/season_16_sorghum_yr_2023/level_0/stereoTop/ToDelete_stereoTop-2223-05-08__00-00-00-000_sorghum.tar.gz -u adityakumar -n 10 -t subset"
             echo "Check the github repo for more information."
             exit 0
             ;;

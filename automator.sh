@@ -44,18 +44,20 @@ done
 
 # Processing to find the file name from the path provided and the directory name
 SCAN_FILE_NAME=$(echo ${SCAN_PATH} | cut -d '/' -f 9)
+SCAN_PATH_NAME=$(echo ${SCAN_PATH} | cut -d '/' -f 1-8)
 SCAN_DIR_NAME=$(echo ${SCAN_FILE_NAME} | cut -d '.' -f 1)
 
 # Download the file
 if ! ssh filexfer "cd /xdisk/dukepauli/${USER}/;iget -KT ${SCAN_PATH}"; then
-  echo "Error: Failed to download file from remote server." >&2
+  echo "Error: Failed to download file from cyverse." >&2
   exit 1
 fi
 
 echo "Scan ${SCAN_FILE_NAME} download complete. (1/5)"
 
 # Extract the scan from the downloaded zip
-if ! tar -xzvf ${SCAN_FILE_NAME}; then
+cd /xdisk/dukepauli/${USER}/
+if ! tar -xzf ${SCAN_FILE_NAME}; then
   echo "Error: Failed to extract file." >&2
   exit 1
 fi
@@ -67,11 +69,12 @@ echo "Selecting files for the test dataset. (3/5)"
 mkdir ${TEST_DATASET_NAME}
 cd ${SCAN_DIR_NAME}
 FILE_COUNT=$(ls | wc -l)
+echo $FILE_COUNT
 # For scans with even numbered files
 if [ $((FILE_COUNT % 2)) -eq 0 ]; then
-  ls | head -n $((($FILE_COUNT + 1) / 2 + $NUMBER_OF_FILES / 2)) | tail -n ${NUMBER_OF_FILES} | xargs -I {} cp {} "../${TEST_DATASET_NAME}/"
+  ls | head -n $((($FILE_COUNT + 1) / 2 + $NUMBER_OF_FILES / 2)) | tail -n ${NUMBER_OF_FILES} | xargs -I {} cp -R {} "../${TEST_DATASET_NAME}/"
 else
-  ls | head -n $((($FILE_COUNT + 1) / 2 + $NUMBER_OF_FILES / 2)) | tail -n $((NUMBER_OF_FILES + 1)) | xargs -I {} cp {} "../${TEST_DATASET_NAME}/"
+  ls | head -n $((($FILE_COUNT + 1) / 2 + $NUMBER_OF_FILES / 2)) | tail -n $((NUMBER_OF_FILES + 1)) | xargs -I {} cp -R {} "../${TEST_DATASET_NAME}/"
 fi
 
 # To go inside the newly created test dataset and remove garbage files
@@ -79,15 +82,20 @@ cd ../${TEST_DATASET_NAME}
 rm -f *.json *.bin
 
 # Zip and post the test dataset
+cd ../
 echo "Zipping and uploading the test dataset. (4/5)"
-if ! tar -czvf "${TEST_DATASET_NAME}.tar.gz" "${TEST_DATASET_NAME}/"; then
+if ! tar -czf "${TEST_DATASET_NAME}.tar.gz" "${TEST_DATASET_NAME}/"; then
   echo "Error: Failed to create tarball of test dataset." >&2
   exit 1
 fi
 
-if ! ssh filexfer "cd /xdisk/dukepauli/${USER}/;iput -KT '${TEST_DATASET_NAME}.tar.gz'"; then
-  echo "Error: Failed to upload test dataset to remote server." >&2
+if ! ssh filexfer "cd /xdisk/dukepauli/${USER}/;icd ${SCAN_PATH_NAME};iput -KTf '${TEST_DATASET_NAME}.tar.gz'"; then
+  echo "Error: Failed to upload test dataset to cyverse." >&2
   exit 1
 fi
 
-echo "Done. (5/5)"
+echo "Cleaning up files. (5/5)"
+
+rm -rf ${TEST_DATASET_NAME}.tar.gz ${TEST_DATASET_NAME} ${SCAN_FILE_NAME} ${SCAN_DIR_NAME}
+
+echo "Done"

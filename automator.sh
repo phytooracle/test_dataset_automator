@@ -57,7 +57,7 @@ echo "Scan ${SCAN_FILE_NAME} download complete. (1/5)"
 
 # Extract the scan from the downloaded zip
 cd /xdisk/dukepauli/${USER}/
-if ! tar -xzf ${SCAN_FILE_NAME}; then
+if ! tar -xzf ${SCAN_FILE_NAME} --checkpoint=.100; then
   echo "Error: Failed to extract file." >&2
   exit 1
 fi
@@ -94,8 +94,8 @@ if ! ssh filexfer "cd /xdisk/dukepauli/${USER}/;icd ${SCAN_PATH_NAME};iput -KTf 
   exit 1
 fi
 
+# Clean up old files
 echo "Cleaning up files. (5/5)"
-
 rm -rf ${TEST_DATASET_NAME}.tar.gz ${TEST_DATASET_NAME} ${SCAN_FILE_NAME} ${SCAN_DIR_NAME}
 
 echo "Done"

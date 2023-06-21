@@ -74,7 +74,7 @@ def generate_test_filename(infile, outfile):
     split_filename[3] = split_filename[3][:4] + "00" #replace hour component
     split_filename[4] = "00" #replace minute component
     split_filename[5] = "00" #replace second components
-    split_filename[6] = "000" + split_filename[6][3:] #replace millisecond component
+    split_filename[6] = "000" + split_filename[6][3:7] #replace millisecond component
     outfile = split_filename[0] + split_filename[1] + split_filename[2] + split_filename[3] + split_filename[4] + split_filename[5] + split_filename[6]
 
     return outfile

@@ -70,11 +70,11 @@ def generate_test_filename(infile, outfile):
         - outfile: output filename string
     '''
     split_filename = infile.split('-')
-    split_filename[1] = "22" + split_filename[1][2:]
-    split_filename[3] = split_filename[3][:4] + "00"
-    split_filename[4] = "00"
-    split_filename[5] = "00"
-    split_filename[6] = "000" + split_filename[6][3:]
+    #split_filename[1] = "22" + split_filename[1][2:] #replace first two characters of year with 22
+    split_filename[3] = split_filename[3][:4] + "00" #replace hour component
+    split_filename[4] = "00" #replace minute component
+    split_filename[5] = "00" #replace second components
+    split_filename[6] = "000" + split_filename[6][3:] #replace millisecond component
     outfile = split_filename[0] + split_filename[1] + split_filename[2] + split_filename[3] + split_filename[4] + split_filename[5] + split_filename[6]
 
     return outfile
@@ -109,7 +109,7 @@ def main():
     # Iterate through all dates within this season
     for filename in files:
       if filename.endswith(".tar.gz"):
-          generate_test_filename(filename, outfile)
+          outfile = generate_test_filename(filename, outfile)
           run_automator(filename, args.user, outfile, args.number)
 
 

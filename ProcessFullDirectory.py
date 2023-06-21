@@ -60,7 +60,7 @@ def get_file_list(data_path):
 
 
 #-------------------------------------------------------------------------------
-def generate_test_filename(infile, outfile):
+def generate_test_filename(infile):
     '''
     Generate a filename for the test dataset output.
     
@@ -109,7 +109,7 @@ def main():
     # Iterate through all dates within this season
     for filename in files:
       if filename.endswith(".tar.gz"):
-          outfile = generate_test_filename(filename, outfile)
+          outfile = generate_test_filename(filename)
           run_automator(filename, args.user, outfile, args.number)
 
 

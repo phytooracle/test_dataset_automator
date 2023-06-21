@@ -111,10 +111,10 @@ def main():
     # Iterate through all dates within this season
     for filename in files:
         print("input filename: " + filename)
-      if filename.endswith(".tar.gz"):
-          outfile = generate_test_filename(filename)
-          print(outfile)
-          run_automator(filename, args.user, outfile, args.number)
+        if filename.endswith(".tar.gz"):
+            outfile = generate_test_filename(filename)
+            print(outfile)
+            run_automator(filename, args.user, outfile, args.number)
 
 
 # --------------------------------------------------

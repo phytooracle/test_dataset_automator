@@ -1,11 +1,20 @@
 # Test Dataset Automator
 This script is used to create test datasets for scans of different sensors such as RGD, 3D, IR etc. . 
 
+## Usage - Python Script
+Use the python script when you want to recursively generate test datasets for all scans within a directory.
+```python3 ProcessFullDirectory.py -p <path containing multiple scan dates> -u <netid> -n <#>```
 
-## Usage
+### Flags - Python Script
+-p: This flag is used to specify the **source path** containing scan directories.<br />
+-- Example: /iplant/home/shared/phytooracle/season_14_sorghum_yr_2022/level_0/scanner3DTop would permit processing of all datasets within this directory.<br />
+-n: This flag should be followed by the number of sub-directories from the example scan that should be included in the test dataset <br />
+-u: This flag should be followed by the username of the user running this script. Used for accessing the xdisk  <br />
+
+## Usage - Shell Script
 ```./automator.sh -p [pathname] -u [username] -t [test_dataset_name(DON'T INCLUDE .tar.gz)] -n [number_of_files]```
 
-### Flags
+### Flags - Shell Script
 -p: This flag is used to specify the **source path** for the example scan used to create the test dataset.<br />
 -n: This flag should be followed by the number of sub-directories from the example scan that should be included in the test dataset <br />
 -u: This flag should be followed by the username of the user running this script. Used for accessing the xdisk  <br />

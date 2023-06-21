@@ -101,15 +101,19 @@ def run_automator(input_file, username, output_filename, number):
 
 #-------------------------------------------------------------------------------
 def main():
+    print("getting args")
     args = get_args()
     
+    print("getting file list")
     files = get_file_list(args.path)
-    
+    print("file list\n"+files)
    
     # Iterate through all dates within this season
     for filename in files:
+        print("input filename: " + filename)
       if filename.endswith(".tar.gz"):
           outfile = generate_test_filename(filename)
+          print(outfile)
           run_automator(filename, args.user, outfile, args.number)
 
 

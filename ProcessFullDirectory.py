@@ -83,7 +83,7 @@ def generate_test_filename(infile, outfile):
 #-------------------------------------------------------------------------------
 def run_automator(input_file, username, output_filename, number):
     '''
-    List all files in path
+    Run the automator
     
     Input:
         - input_file: full name of the input file, including extension

@@ -112,9 +112,9 @@ def main():
     for filename in files:
         print("input filename: ", filename)
         if filename.endswith(".tar.gz"):
-            outfile = generate_test_filename(filename.lstrip()[5:])
+            outfile = generate_test_filename(filename)
             print("outfile", outfile)
-            run_automator(filename.lstrip()[5:], args.user, outfile, args.number)
+            run_automator(filename, args.user, outfile, args.number)
 
 
 # --------------------------------------------------

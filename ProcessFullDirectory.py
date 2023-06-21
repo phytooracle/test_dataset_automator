@@ -106,15 +106,15 @@ def main():
     
     print("getting file list")
     files = get_file_list(args.path)
-    print("file list\n",files)
+    print("file list\n", files)
    
     # Iterate through all dates within this season
     for filename in files:
-        print("input filename: ",filename)
+        print("input filename: ", filename)
         if filename.endswith(".tar.gz"):
-            outfile = generate_test_filename(filename)
-            print(outfile)
-            run_automator(filename, args.user, outfile, args.number)
+            outfile = generate_test_filename(filename.lstrip())[5:])
+            print("outfile", outfile)
+            run_automator(filename.lstrip())[5:], args.user, outfile, args.number)
 
 
 # --------------------------------------------------

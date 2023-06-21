@@ -115,7 +115,9 @@ def main():
             print("corrected filename: ",filename)
             outfile = generate_test_filename(filename)
             print("outfile", outfile)
-            run_automator(filename, args.user, outfile, args.number)
+            srcPath = ('/').join([args.path,filename])
+            print("srcPath", srcPath)
+            run_automator(srcPath, args.user, outfile, args.number)
 
 
 # --------------------------------------------------

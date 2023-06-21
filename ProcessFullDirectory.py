@@ -94,9 +94,8 @@ def run_automator(input_file, username, output_filename, number):
         - Uploads test dataset to CyVerse datastore
     '''
     result = sp.run(["./automator.sh", "-p", input_file, "-u", username, "-t", output_filename, "-n", number])
-    files = result.stdout.decode('utf-8').split('\n')
-
-    return files
+    
+    return result
 
 
 #-------------------------------------------------------------------------------

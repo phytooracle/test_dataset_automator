@@ -112,6 +112,8 @@ def main():
     for filename in files:
         print("input filename: ", filename)
         if filename.endswith(".tar.gz"):
+            filename = filename[2:]
+            print("corrected filename: ",filename)
             outfile = generate_test_filename(filename)
             print("outfile", outfile)
             run_automator(filename, args.user, outfile, args.number)

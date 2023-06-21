@@ -36,7 +36,7 @@ def get_args():
     parser.add_argument('-n',
                         '--number',
                         help='Number of measurements to include in test dataset',
-                        type=int,
+                        type=str,
                         required=True)
                         # Example: 90
                         
